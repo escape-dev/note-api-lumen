@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Note;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class NoteSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call('UsersTableSeeder');
-        $this->call(NoteSeeder::class);
+        Note::create([
+            'title' => 'Testing the title',
+            'body' => 'Testing the description',
+        ]);
     }
 }
