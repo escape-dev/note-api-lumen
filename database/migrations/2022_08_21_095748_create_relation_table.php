@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notes', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('user_id');
-            $table->string('title');
-            $table->string('body');
-            $table->timestamps();
+        Schema::table('notes', function (Blueprint $table) {
+            $table->foreign('user_id',)->references('id')->on('users');
         });
     }
 
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notes');
+        //
     }
 };

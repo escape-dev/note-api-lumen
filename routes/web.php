@@ -23,8 +23,15 @@ $router->get('/key', function () {
     return \Illuminate\Support\Str::random(32);
 });
 
-$router->get('/notes', 'NoteController@index');
-$router->get('/notes/{id}', 'NoteController@show');
-$router->post('/notes', 'NoteController@store');
-$router->put('/notes/{id}', 'NoteController@update');
-$router->delete('/notes/{id}', 'NoteController@destroy');
+$router->group(['prefix' => 'auth'], function () use ($router) {
+    $router->post('/register', 'AuthController@register');
+    $router->post('/login', 'AuthController@login');
+});
+
+$router->group(['prefix' => 'notes', 'middleware' => 'auth'], function () use ($router) {
+    $router->get('/', 'NoteController@index');
+    $router->get('/{id}', 'NoteController@show');
+    $router->post('/', 'NoteController@store');
+    $router->put('/{id}', 'NoteController@update');
+    $router->delete('/{id}', 'NoteController@destroy');
+});

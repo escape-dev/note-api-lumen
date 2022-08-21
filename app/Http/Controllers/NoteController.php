@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class NoteController extends Controller
@@ -45,6 +46,7 @@ class NoteController extends Controller
 
         $note = Note::create([
             'title' => $request->title,
+            'user_id' => Auth::user()->id,
             'body' => $request->body,
         ]);
 
@@ -96,6 +98,7 @@ class NoteController extends Controller
 
         $note->update([
             'title' => $request->title,
+            'user_id' => Auth::user()->id,
             'body' => $request->body,
         ]);
 
